@@ -68,6 +68,14 @@ export function updateCarouselCaption(imageId, caption) {
   return request('update-carousel-caption', { body: { imageId, caption } })
 }
 
+export function uploadGalleryImage(imageBase64) {
+  return request('upload-gallery-image', { body: { imageBase64 } })
+}
+
+export function deleteGalleryImage(imageId) {
+  return request('delete-gallery-image', { body: { imageId } })
+}
+
 export function getActivityLog() {
   return request('activity-log', { method: 'GET' })
 }

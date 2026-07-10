@@ -11,13 +11,14 @@ export async function handler(event) {
 
   const supabase = getSupabaseAdmin()
 
-  const [{ data: content }, { data: images }] = await Promise.all([
+  const [{ data: content }, { data: images }, { data: galleryImages }] = await Promise.all([
     supabase.from('site_content').select('*').eq('state', 'draft').maybeSingle(),
     supabase.from('carousel_images').select('*').eq('state', 'draft').order('sort_order'),
+    supabase.from('gallery_images').select('*').eq('state', 'draft').order('sort_order'),
   ])
 
   return {
     statusCode: 200,
-    body: JSON.stringify({ content, images: images || [] }),
+    body: JSON.stringify({ content, images: images || [], galleryImages: galleryImages || [] }),
   }
 }

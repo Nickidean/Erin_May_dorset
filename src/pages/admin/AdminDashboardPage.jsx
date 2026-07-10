@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import AutosaveIndicator from '../../components/admin/AutosaveIndicator.jsx'
 import ImageCropUploader from '../../components/admin/ImageCropUploader.jsx'
 import CarouselManager from '../../components/admin/CarouselManager.jsx'
+import GalleryManager from '../../components/admin/GalleryManager.jsx'
 import { getDraftContent, saveDraft, publish as publishSite, uploadLogo, removeLogo, logout } from '../../lib/adminApi.js'
 import { getMediaPublicUrl } from '../../lib/supabase.js'
 import { getSession, clearSession } from '../../lib/session.js'
@@ -13,6 +14,7 @@ export default function AdminDashboardPage() {
   const session = getSession()
   const [content, setContent] = useState(null)
   const [images, setImages] = useState([])
+  const [galleryImages, setGalleryImages] = useState([])
   const [saveStatus, setSaveStatus] = useState('')
   const [faqSaveStatus, setFaqSaveStatus] = useState('')
   const [publishStatus, setPublishStatus] = useState('')
@@ -21,12 +23,13 @@ export default function AdminDashboardPage() {
   const faqSaveTimer = useRef(null)
 
   useEffect(() => {
-    getDraftContent().then(({ content, images }) => {
+    getDraftContent().then(({ content, images, galleryImages }) => {
       setContent({
         ...content,
         faqs: content.faqs && content.faqs.length ? content.faqs : FAQS_DEFAULT,
       })
       setImages(images)
+      setGalleryImages(galleryImages)
     })
   }, [])
 
@@ -181,6 +184,12 @@ export default function AdminDashboardPage() {
           <h2>Photo carousel</h2>
           <p className="admin-section-hint">Up to 5 photos. They're cropped automatically so the layout can't break.</p>
           <CarouselManager images={images} onChange={setImages} />
+        </div>
+
+        <div className="admin-section">
+          <h2>Gallery</h2>
+          <p className="admin-section-hint">Up to 12 photos in a separate gallery grid, further down the page. Visitors can tap one to see it larger.</p>
+          <GalleryManager images={galleryImages} onChange={setGalleryImages} />
         </div>
 
         <div className="admin-section">

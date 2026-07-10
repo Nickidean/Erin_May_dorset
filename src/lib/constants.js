@@ -28,4 +28,7 @@ export const CAROUSEL_ASPECT_RATIO = 3 / 2
 export const MAX_IMAGE_DIMENSION = 1600
 export const LOGO_MAX_DIMENSION = 800
 
+export const MAX_GALLERY_IMAGES = 12
+export const GALLERY_ASPECT_RATIO = 1
+
 export const SESSION_STORAGE_KEY = 'erin-may-admin-session'
