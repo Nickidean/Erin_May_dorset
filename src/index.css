@@ -221,7 +221,8 @@ button {
 
 /* ===== About ===== */
 .about-section {
-  padding: 3.5rem 0;
+  padding-top: 3.5rem;
+  padding-bottom: 3.5rem;
   text-align: center;
 }
 .about-section h2 {
@@ -235,13 +236,14 @@ button {
   color: var(--text);
 }
 @media (max-width: 640px) {
-  .about-section { padding: 2.5rem 0; }
+  .about-section { padding-top: 2.5rem; padding-bottom: 2.5rem; }
   .about-section h2 { font-size: 1.6rem; }
 }
 
 /* ===== FAQ ===== */
 .faq-section {
-  padding: 2rem 0 3.5rem;
+  padding-top: 2rem;
+  padding-bottom: 3.5rem;
 }
 .faq-section h2 {
   font-size: 2rem;
@@ -270,7 +272,7 @@ button {
   font-size: 0.95rem;
 }
 @media (max-width: 640px) {
-  .faq-section { padding: 1.5rem 0 3rem; }
+  .faq-section { padding-top: 1.5rem; padding-bottom: 3rem; }
   .faq-section h2 { font-size: 1.6rem; }
   .faq-item { padding: 1rem 1.1rem; }
 }
