@@ -49,6 +49,22 @@ export default function AdminDashboardPage() {
     })
   }
 
+  function handleFaqAdd() {
+    setContent((prev) => {
+      const faqs = [...prev.faqs, { question: '', answer: '' }]
+      scheduleFaqSave(faqs)
+      return { ...prev, faqs }
+    })
+  }
+
+  function handleFaqRemove(index) {
+    setContent((prev) => {
+      const faqs = prev.faqs.filter((_, i) => i !== index)
+      scheduleFaqSave(faqs)
+      return { ...prev, faqs }
+    })
+  }
+
   function scheduleFaqSave(faqs) {
     setFaqSaveStatus('saving')
     clearTimeout(faqSaveTimer.current)
@@ -172,15 +188,18 @@ export default function AdminDashboardPage() {
             <h2>FAQs</h2>
             <AutosaveIndicator status={faqSaveStatus} />
           </div>
-          <p className="admin-section-hint">The four questions and answers shown on the homepage.</p>
+          <p className="admin-section-hint">The questions and answers shown on the homepage.</p>
           {content.faqs.map((faq, i) => (
             <div className="field-group" key={i}>
-              <label className="field-label">Question {i + 1}</label>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <label className="field-label" style={{ flex: 1, marginBottom: 0 }}>Question {i + 1}</label>
+                <button className="btn-icon btn-icon-danger" onClick={() => handleFaqRemove(i)} title="Remove question">✕</button>
+              </div>
               <input
                 className="field-input"
                 value={faq.question}
                 onChange={(e) => handleFaqChange(i, 'question', e.target.value)}
-                style={{ marginBottom: '0.5rem' }}
+                style={{ margin: '0.35rem 0 0.5rem' }}
               />
               <textarea
                 className="field-textarea"
@@ -190,6 +209,7 @@ export default function AdminDashboardPage() {
               />
             </div>
           ))}
+          <button className="btn btn-outline" onClick={handleFaqAdd}>+ Add question</button>
         </div>
 
         <div className="publish-bar">
