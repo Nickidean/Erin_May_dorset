@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 const AUTO_ADVANCE_MS = 4500
 
-export default function Carousel({ images }) {
+export default function Carousel({ images, vintedUrl }) {
   const [index, setIndex] = useState(0)
 
   useEffect(() => {
@@ -21,6 +21,8 @@ export default function Carousel({ images }) {
     return null
   }
 
+  const active = images[index]
+
   return (
     <section className="carousel-section">
       <div className="carousel-hero">
@@ -34,6 +36,13 @@ export default function Carousel({ images }) {
             loading={i === 0 ? 'eager' : 'lazy'}
           />
         ))}
+
+        <div className="carousel-caption-overlay">
+          {active.caption && <p className="carousel-caption-text">{active.caption}</p>}
+          <a href={vintedUrl} target="_blank" rel="noopener noreferrer" className="btn btn-light">
+            Buy a bracelet
+          </a>
+        </div>
       </div>
 
       {images.length > 1 && (

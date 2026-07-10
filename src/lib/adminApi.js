@@ -64,6 +64,10 @@ export function reorderCarouselImages(order) {
   return request('reorder-carousel-images', { body: { order } })
 }
 
+export function updateCarouselCaption(imageId, caption) {
+  return request('update-carousel-caption', { body: { imageId, caption } })
+}
+
 export function getActivityLog() {
   return request('activity-log', { method: 'GET' })
 }

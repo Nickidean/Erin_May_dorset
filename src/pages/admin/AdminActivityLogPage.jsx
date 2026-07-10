@@ -8,6 +8,7 @@ const ACTION_LABELS = {
   add_image: 'Added a photo',
   remove_image: 'Removed a photo',
   reorder_images: 'Reordered photos',
+  edit_caption: 'Edited a photo caption',
   change_logo: 'Changed the logo',
   remove_logo: 'Removed the logo',
   publish: 'Published changes',

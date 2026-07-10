@@ -33,6 +33,7 @@ export default function HomePage() {
           (data || []).map((row) => ({
             id: row.id,
             url: getMediaPublicUrl(row.storage_path),
+            caption: row.caption,
           }))
         )
       })
@@ -47,7 +48,7 @@ export default function HomePage() {
   return (
     <div className="site">
       <Header logoUrl={logoUrl} vintedUrl={vintedUrl} whatsappUrl={whatsappUrl} />
-      <Carousel images={images} />
+      <Carousel images={images} vintedUrl={vintedUrl} />
       <AboutSection text={aboutText} />
       <FaqSection faqs={faqs} />
       <Footer vintedUrl={vintedUrl} whatsappUrl={whatsappUrl} />
