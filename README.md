@@ -35,7 +35,7 @@ One-page site for Erin May (handmade bracelets by Amelie and Lily), with a small
 - `site_content` and `carousel_images` both have a `state` of `'draft'` or `'published'`. Admin edits only ever touch the draft rows; the public site only ever reads published rows.
 - Clicking **Publish** in the admin area calls the `publish_site()` Postgres function, which copies draft → published atomically, so a half-finished edit is never visible on the live site.
 - The photo carousel is capped at 5 images, enforced both in the UI and server-side in `upload-carousel-image.js`.
-- FAQs are static (`src/lib/constants.js`) — not admin-editable by design.
+- FAQs are stored as a `faqs` jsonb column on `site_content` (draft/published, same as the other fields) and are editable in the admin dashboard. `src/lib/constants.js` only holds the fallback default shown if Supabase isn't configured or the column is empty.
 
 ## Safeguarding
 

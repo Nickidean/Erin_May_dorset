@@ -150,8 +150,8 @@ button {
 }
 .carousel-hero {
   position: relative;
-  width: min(90vw, 640px);
-  aspect-ratio: 4 / 3;
+  width: min(94vw, 1040px);
+  aspect-ratio: 3 / 2;
   margin: 0 auto;
   border-radius: var(--radius);
   overflow: hidden;
@@ -479,7 +479,7 @@ button {
   border-radius: var(--radius-sm);
   overflow: hidden;
   border: 1px solid var(--border);
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 3 / 2;
   background: var(--bg);
 }
 .carousel-manager-item img {

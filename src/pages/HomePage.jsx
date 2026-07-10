@@ -42,13 +42,14 @@ export default function HomePage() {
   const aboutText = content?.about_text || ABOUT_TEXT_DEFAULT
   const vintedUrl = content?.vinted_url || VINTED_URL_DEFAULT
   const whatsappUrl = content?.whatsapp_url || WHATSAPP_URL_DEFAULT
+  const faqs = content?.faqs
 
   return (
     <div className="site">
       <Header logoUrl={logoUrl} vintedUrl={vintedUrl} whatsappUrl={whatsappUrl} />
       <Carousel images={images} />
       <AboutSection text={aboutText} />
-      <FaqSection />
+      <FaqSection faqs={faqs} />
       <Footer vintedUrl={vintedUrl} whatsappUrl={whatsappUrl} />
     </div>
   )

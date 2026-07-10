@@ -48,6 +48,10 @@ export function uploadLogo(imageBase64) {
   return request('upload-logo', { body: { imageBase64 } })
 }
 
+export function removeLogo() {
+  return request('remove-logo')
+}
+
 export function uploadCarouselImage(imageBase64) {
   return request('upload-carousel-image', { body: { imageBase64 } })
 }

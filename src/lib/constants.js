@@ -24,7 +24,7 @@ export const FAQS = [
 ]
 
 export const MAX_CAROUSEL_IMAGES = 5
-export const CAROUSEL_ASPECT_RATIO = 4 / 3
+export const CAROUSEL_ASPECT_RATIO = 3 / 2
 export const MAX_IMAGE_DIMENSION = 1600
 export const LOGO_MAX_DIMENSION = 800
 

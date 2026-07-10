@@ -2,7 +2,16 @@ import { getSupabaseAdmin } from './_shared/supabaseAdmin.js'
 import { verifySession, unauthorized } from './_shared/verifySession.js'
 import { logActivity } from './_shared/logActivity.js'
 
-const ALLOWED_FIELDS = ['about_text', 'vinted_url', 'whatsapp_url']
+const TEXT_FIELDS = ['about_text', 'vinted_url', 'whatsapp_url']
+
+function isValidFaqs(faqs) {
+  return (
+    Array.isArray(faqs) &&
+    faqs.every(
+      (f) => f && typeof f.question === 'string' && typeof f.answer === 'string'
+    )
+  )
+}
 
 export async function handler(event) {
   if (event.httpMethod !== 'POST') {
@@ -20,8 +29,14 @@ export async function handler(event) {
   }
 
   const updates = {}
-  for (const field of ALLOWED_FIELDS) {
+  for (const field of TEXT_FIELDS) {
     if (typeof body[field] === 'string') updates[field] = body[field]
+  }
+  if (body.faqs !== undefined) {
+    if (!isValidFaqs(body.faqs)) {
+      return { statusCode: 400, body: JSON.stringify({ error: 'Invalid faqs payload' }) }
+    }
+    updates.faqs = body.faqs
   }
 
   if (Object.keys(updates).length === 0) {
