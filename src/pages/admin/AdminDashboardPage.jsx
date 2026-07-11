@@ -121,7 +121,7 @@ export default function AdminDashboardPage() {
     navigate('/admin/login', { replace: true })
   }
 
-  if (!content) return <div className="loading">Loading…</div>
+  if (!content) return <div className="admin-shell"><div className="loading">Loading…</div></div>
 
   return (
     <div className="admin-shell">
