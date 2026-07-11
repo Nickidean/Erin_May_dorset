@@ -2,7 +2,13 @@ import React from 'react'
 import { FAQS as FAQS_DEFAULT } from '../lib/constants.js'
 
 export default function FaqSection({ faqs }) {
-  const items = faqs && faqs.length ? faqs : FAQS_DEFAULT
+  // undefined = content hasn't loaded yet (or Supabase isn't configured) -> show defaults.
+  // an array (even empty) = real published data -> respect it, including "no FAQs at all".
+  const items = faqs === undefined ? FAQS_DEFAULT : faqs
+
+  if (items.length === 0) {
+    return null
+  }
 
   return (
     <section className="faq-section container">
