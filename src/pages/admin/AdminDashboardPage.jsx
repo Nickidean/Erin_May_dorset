@@ -8,10 +8,12 @@ import { getDraftContent, saveDraft, publish as publishSite, uploadLogo, removeL
 import { getMediaPublicUrl } from '../../lib/supabase.js'
 import { getSession, clearSession } from '../../lib/session.js'
 import { LOGO_MAX_DIMENSION, FAQS as FAQS_DEFAULT } from '../../lib/constants.js'
+import { getAdminGreeting } from '../../lib/greeting.js'
 
 export default function AdminDashboardPage() {
   const navigate = useNavigate()
   const session = getSession()
+  const [greeting] = useState(() => getAdminGreeting(session?.adminName))
   const [content, setContent] = useState(null)
   const [images, setImages] = useState([])
   const [galleryImages, setGalleryImages] = useState([])
@@ -119,6 +121,8 @@ export default function AdminDashboardPage() {
           <button className="btn btn-outline" onClick={handleLogout}>Log out</button>
         </nav>
       </header>
+
+      <p className="admin-greeting">{greeting}</p>
 
       <main className="admin-main">
         <div className="admin-section">

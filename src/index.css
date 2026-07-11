@@ -506,6 +506,14 @@ button {
   background: var(--baby-blue);
   color: #2f4a5a;
 }
+.admin-greeting {
+  text-align: center;
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  color: var(--text);
+  padding: 1.5rem 1.5rem 0;
+  margin: 0;
+}
 .admin-main {
   max-width: 720px;
   margin: 0 auto;
