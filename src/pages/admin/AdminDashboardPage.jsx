@@ -28,7 +28,7 @@ export default function AdminDashboardPage() {
     getDraftContent().then(({ content, images, galleryImages }) => {
       setContent({
         ...content,
-        faqs: content.faqs && content.faqs.length ? content.faqs : FAQS_DEFAULT,
+        faqs: content.faqs ?? FAQS_DEFAULT,
       })
       setImages(images)
       setGalleryImages(galleryImages)
