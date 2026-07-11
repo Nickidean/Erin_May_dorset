@@ -19,6 +19,7 @@ export async function handler(event) {
 
   return {
     statusCode: 200,
+    headers: { 'Cache-Control': 'no-store' },
     body: JSON.stringify({ content, images: images || [], galleryImages: galleryImages || [] }),
   }
 }

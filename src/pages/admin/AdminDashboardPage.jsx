@@ -21,19 +21,32 @@ export default function AdminDashboardPage() {
   const [faqSaveStatus, setFaqSaveStatus] = useState('')
   const [publishStatus, setPublishStatus] = useState('')
   const [logoBusy, setLogoBusy] = useState(false)
+  const [refreshing, setRefreshing] = useState(false)
   const saveTimer = useRef(null)
   const faqSaveTimer = useRef(null)
 
-  useEffect(() => {
-    getDraftContent().then(({ content, images, galleryImages }) => {
-      setContent({
-        ...content,
-        faqs: content.faqs ?? FAQS_DEFAULT,
-      })
-      setImages(images)
-      setGalleryImages(galleryImages)
+  async function loadDraft() {
+    const { content, images, galleryImages } = await getDraftContent()
+    setContent({
+      ...content,
+      faqs: content.faqs ?? FAQS_DEFAULT,
     })
+    setImages(images)
+    setGalleryImages(galleryImages)
+  }
+
+  useEffect(() => {
+    loadDraft()
   }, [])
+
+  async function handleRefresh() {
+    setRefreshing(true)
+    try {
+      await loadDraft()
+    } finally {
+      setRefreshing(false)
+    }
+  }
 
   function handleFieldChange(field, value) {
     setContent((prev) => ({ ...prev, [field]: value }))
@@ -116,6 +129,9 @@ export default function AdminDashboardPage() {
         <span className="admin-header-title">Erin May admin</span>
         <nav className="admin-header-nav">
           <span className="admin-nav-link">{session?.adminName}</span>
+          <button className="admin-nav-link admin-refresh-btn" onClick={handleRefresh} disabled={refreshing}>
+            {refreshing ? 'Refreshing…' : '↻ Refresh'}
+          </button>
           <Link to="/admin/activity" className="admin-nav-link">Activity log</Link>
           <a href="/" target="_blank" rel="noopener noreferrer" className="admin-nav-link">View site ↗</a>
           <button className="btn btn-outline" onClick={handleLogout}>Log out</button>

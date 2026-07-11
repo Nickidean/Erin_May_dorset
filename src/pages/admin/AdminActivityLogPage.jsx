@@ -18,16 +18,33 @@ const ACTION_LABELS = {
 
 export default function AdminActivityLogPage() {
   const [entries, setEntries] = useState(null)
+  const [refreshing, setRefreshing] = useState(false)
+
+  function load() {
+    return getActivityLog().then(({ entries }) => setEntries(entries))
+  }
 
   useEffect(() => {
-    getActivityLog().then(({ entries }) => setEntries(entries))
+    load()
   }, [])
+
+  async function handleRefresh() {
+    setRefreshing(true)
+    try {
+      await load()
+    } finally {
+      setRefreshing(false)
+    }
+  }
 
   return (
     <div className="admin-shell">
       <header className="admin-header">
         <span className="admin-header-title">Activity log</span>
         <nav className="admin-header-nav">
+          <button className="admin-nav-link admin-refresh-btn" onClick={handleRefresh} disabled={refreshing}>
+            {refreshing ? 'Refreshing…' : '↻ Refresh'}
+          </button>
           <Link to="/admin" className="admin-nav-link">Back to admin</Link>
         </nav>
       </header>

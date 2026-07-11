@@ -22,5 +22,9 @@ export async function handler(event) {
     return { statusCode: 500, body: JSON.stringify({ error: 'Could not load activity log' }) }
   }
 
-  return { statusCode: 200, body: JSON.stringify({ entries: data }) }
+  return {
+    statusCode: 200,
+    headers: { 'Cache-Control': 'no-store' },
+    body: JSON.stringify({ entries: data }),
+  }
 }

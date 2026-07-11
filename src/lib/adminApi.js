@@ -9,6 +9,7 @@ async function request(path, { method = 'POST', body } = {}) {
     method,
     headers,
     body: body ? JSON.stringify(body) : undefined,
+    cache: 'no-store',
   })
 
   if (res.status === 401) {

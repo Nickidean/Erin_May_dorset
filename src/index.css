@@ -502,6 +502,16 @@ button {
   padding: 0.4rem 0.8rem;
   border-radius: 999px;
 }
+.admin-refresh-btn {
+  font-family: inherit;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+.admin-refresh-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
 .admin-nav-link:hover, .admin-nav-link.active {
   background: var(--baby-blue);
   color: #2f4a5a;
