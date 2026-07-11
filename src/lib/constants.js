@@ -32,3 +32,5 @@ export const MAX_GALLERY_IMAGES = 12
 export const GALLERY_ASPECT_RATIO = 1
 
 export const SESSION_STORAGE_KEY = 'erin-may-admin-session'
+
+export const ADMIN_LOGIN_LOADING_GIF = 'https://media1.tenor.com/m/6vcKQGHWbv0AAAAC/bey-feminism.gif'

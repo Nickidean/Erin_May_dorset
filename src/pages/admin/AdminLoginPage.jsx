@@ -3,11 +3,18 @@ import { useNavigate } from 'react-router-dom'
 import PinPad from '../../components/admin/PinPad.jsx'
 import { login } from '../../lib/adminApi.js'
 import { setSession } from '../../lib/session.js'
+import { ADMIN_LOGIN_LOADING_GIF } from '../../lib/constants.js'
 
 const ADMINS = [
   { key: 'amelie', label: 'Amelie' },
   { key: 'lily', label: 'Lily' },
 ]
+
+const MIN_LOADING_MS = 1200
+
+function wait(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms))
+}
 
 export default function AdminLoginPage() {
   const navigate = useNavigate()
@@ -21,14 +28,18 @@ export default function AdminLoginPage() {
     setError('')
     if (value.length === 4 && admin) {
       setLoading(true)
+      const startedAt = Date.now()
       try {
         const { token, adminName } = await login(admin, value)
+        const elapsed = Date.now() - startedAt
+        if (elapsed < MIN_LOADING_MS) await wait(MIN_LOADING_MS - elapsed)
         setSession({ token, adminName })
         navigate('/admin', { replace: true })
       } catch {
+        const elapsed = Date.now() - startedAt
+        if (elapsed < MIN_LOADING_MS) await wait(MIN_LOADING_MS - elapsed)
         setError('Incorrect PIN. Try again.')
         setPin('')
-      } finally {
         setLoading(false)
       }
     }
@@ -39,7 +50,12 @@ export default function AdminLoginPage() {
       <div className="admin-login-card">
         <h1 className="admin-login-title">Erin May admin</h1>
 
-        {!admin ? (
+        {loading ? (
+          <div className="admin-login-loading">
+            <img src={ADMIN_LOGIN_LOADING_GIF} alt="" className="admin-login-gif" />
+            <p className="admin-login-sub">Logging in…</p>
+          </div>
+        ) : !admin ? (
           <div className="admin-login-who">
             <p className="admin-login-sub">Who are you?</p>
             <div className="admin-login-who-buttons">
